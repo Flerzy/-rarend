@@ -1,0 +1,56 @@
+body{
+    overflow: hidden;
+    margin: 0;
+    font-family: Bahnschrift;
+    color: black;
+
+}
+.container{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #1b1a1a;
+}
+.schedule{
+    width: max-content;
+    height: max-content;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 10px 10px 10px rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+.radioB{
+    display: flex;
+    margin-top: 40px;
+    margin-left: 40px;
+    margin-right: 40px;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.timeH1{
+    text-align: center;
+    margin-top: 40px;
+}
+.refreshButton{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+input[type=button]{
+    background-color: dodgerblue;
+    border: none;
+    color: white;
+    font-weight: bold;
+    width: 100%;
+    height: 40px;
+    border-radius: 0px;
+    margin-top: 10px;
+    padding: 0;
+    border: 1px solid dodgerblue;
+    border-radius: 15px;
+}
+#timeVal, #timer{
+    color: dodgerblue;
+}

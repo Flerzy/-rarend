@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="data.js"></script>
+    <title>Órarend</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="schedule">
+            <div class="radioB">
+                    <div><input type="radio" name="timer" id="h45">Normál(45')</div>
+                    <div><input type="radio" name="timer" id="h40">Rövidített(40')</div>
+                    <div><input type="radio" name="timer" id="h35">Rövidített(35')</div>
+            </div>
+            <div class="timeH1">
+                <h1 id="timer">9:11</h1>
+                <p id="info"></p>
+            </div>
+            <div class="refreshButton">
+                <input type="button" value="Frissítés" onclick="refreshTimer()">
+            </div>
+        </div>
+    </div>
+    <script>
+        const timerH1 = document.getElementById("timer")
+        const timeTable = bellShedules
+
+        const setCurrentTime = () =>{
+            let now = new Date()
+            let hour = now.getHours()
+            let min = now.getMinutes()
+            let sec = now.getSeconds()
+            min = min.toString()
+            if (min.length == 1){
+                let temp = min.toString().charAt(0)
+                min = "0" + temp
+            }
+            sec = sec.toString()
+            if (sec.length == 1){
+                let temp = sec.toString().charAt(0)
+                sec = "0" + temp
+            }
+
+            let hourText = hour + ":" + min
+            timerH1.innerText = hourText + ":"+ sec
+            return hourText
+        }
+        const refreshTimer = () => {
+            let hourText = setCurrentTime()
+            let now = new Date()
+            let selected
+            try{
+                selected = document.querySelector('input[name="timer"]:checked').id
+            }
+            catch (err){
+
+            }
+            let hour = now.getHours()
+            let min = now.getMinutes()
+
+            if (selected != null){
+                let current = timeTable[selected].find(obj => hourText >= obj.from && hourText <=obj.to)
+                console.log(timeTable[selected][7])
+                if(current){
+                    document.getElementById("info").innerHTML = `Most a/az <span id="timeVal">${current.id}</span>. óra van és a <span id="timeVal">${current.to}</span>-ig tart`
+                }
+                else if (timeTable[selected][7].to < hourText){
+                    document.getElementById("info").innerText = "Nincs több óra ma."
+                }
+                else{
+                    let next = timeTable[selected].find(obj => hourText < obj.from)
+                    document.getElementById("info").innerText = `Szünet van. A következő óra <span id="timeVal"> ${next.id} </span> lesz`
+                }
+            }
+            else{
+                alert("Válassz órarendet!")
+            }
+        }
+        setInterval(setCurrentTime, 1000)
+        setCurrentTime()
+
+    </script>
+</body>
+</html>
