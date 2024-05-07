@@ -32,20 +32,9 @@
 
         const setCurrentTime = () =>{
             let now = new Date()
-            let hour = now.getHours()
-            let min = now.getMinutes()
-            let sec = now.getSeconds()
-            min = min.toString()
-            if (min.length == 1){
-                let temp = min.toString().charAt(0)
-                min = "0" + temp
-            }
-            sec = sec.toString()
-            if (sec.length == 1){
-                let temp = sec.toString().charAt(0)
-                sec = "0" + temp
-            }
-
+            let hour = now.getHours().toString().padStart(2, '0')
+            let min = now.getMinutes().toString().padStart(2, '0')
+            let sec = now.getSeconds().toString().padStart(2, '0')
             let hourText = hour + ":" + min
             timerH1.innerText = hourText + ":"+ sec
             return hourText
@@ -65,16 +54,15 @@
 
             if (selected != null){
                 let current = timeTable[selected].find(obj => hourText >= obj.from && hourText <=obj.to)
-                console.log(timeTable[selected][7])
                 if(current){
                     document.getElementById("info").innerHTML = `Most a/az <span id="timeVal">${current.id}</span>. óra van és a <span id="timeVal">${current.to}</span>-ig tart`
                 }
-                else if (timeTable[selected][7].to < hourText){
+                else if (timeTable[selected][7].to  < hourText){
                     document.getElementById("info").innerText = "Nincs több óra ma."
                 }
                 else{
                     let next = timeTable[selected].find(obj => hourText < obj.from)
-                    document.getElementById("info").innerText = `Szünet van. A következő óra <span id="timeVal"> ${next.id} </span> lesz`
+                    document.getElementById("info").innerHTML = `Szünet van. A következő óra <span id="timeVal"> ${next.id} </span> lesz`
                 }
             }
             else{
